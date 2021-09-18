@@ -1,0 +1,20 @@
+{
+	"name": "BinaryOut",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "DataLake",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Binary",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "a",
+				"folderPath": "merge",
+				"fileSystem": "devdatalake"
+			}
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

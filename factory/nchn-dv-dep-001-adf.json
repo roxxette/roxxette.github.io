@@ -1,0 +1,9 @@
+{
+	"name": "nchn-dv-dep-001-adf",
+	"location": "chinanorth2",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "70f6a324-3b4f-4241-ba14-9259891c9685",
+		"tenantId": "de575837-ebbb-4b6f-9137-e25e8f11e138"
+	}
+}
