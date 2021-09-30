@@ -1,0 +1,42 @@
+{
+	"$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"value": "nchn-dv-dep-001-adf"
+		},
+		"AzureBlobStorage_connectionString": {
+			"value": ""
+		},
+		"DataLake_accountKey": {
+			"value": ""
+		},
+		"FileServer1_password": {
+			"value": ""
+		},
+		"linkedService1_password": {
+			"value": ""
+		},
+		"DataLake_properties_typeProperties_url": {
+			"value": "https://nchndvdep003sta.dfs.core.chinacloudapi.cn"
+		},
+		"FileServer1_properties_typeProperties_host": {
+			"value": "\\\\AZCNN2STGW01\\Rox"
+		},
+		"FileServer1_properties_typeProperties_userId": {
+			"value": "szadmin"
+		},
+		"linkedService1_properties_typeProperties_userName": {
+			"value": "admin"
+		},
+		"ex-adf-ir_properties_typeProperties_linkedInfo_resourceId": {
+			"value": "/subscriptions/738b238c-d18b-4b67-98e2-2d514fcaa6ee/resourcegroups/nchn-ex-dep-dl-rgp/providers/Microsoft.DataFactory/factories/nchn-ex-dep-001-adf/integrationruntimes/adf-ir"
+		},
+		"containerUri": {
+			"value": ""
+		},
+		"containerSasToken": {
+			"value": ""
+		}
+	}
+}

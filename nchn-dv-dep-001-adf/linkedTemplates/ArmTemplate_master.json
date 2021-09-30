@@ -1,0 +1,105 @@
+{
+	"$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"type": "string",
+			"metadata": "Data Factory name",
+			"defaultValue": "nchn-dv-dep-001-adf"
+		},
+		"AzureBlobStorage_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'AzureBlobStorage'"
+		},
+		"DataLake_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'DataLake'"
+		},
+		"FileServer1_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'FileServer1'"
+		},
+		"linkedService1_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'linkedService1'"
+		},
+		"DataLake_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://nchndvdep003sta.dfs.core.chinacloudapi.cn"
+		},
+		"FileServer1_properties_typeProperties_host": {
+			"type": "string",
+			"defaultValue": "\\\\AZCNN2STGW01\\Rox"
+		},
+		"FileServer1_properties_typeProperties_userId": {
+			"type": "string",
+			"defaultValue": "szadmin"
+		},
+		"linkedService1_properties_typeProperties_userName": {
+			"type": "string",
+			"defaultValue": "admin"
+		},
+		"ex-adf-ir_properties_typeProperties_linkedInfo_resourceId": {
+			"type": "string",
+			"defaultValue": "/subscriptions/738b238c-d18b-4b67-98e2-2d514fcaa6ee/resourcegroups/nchn-ex-dep-dl-rgp/providers/Microsoft.DataFactory/factories/nchn-ex-dep-001-adf/integrationruntimes/adf-ir"
+		},
+		"containerUri": {
+			"type": "string",
+			"metadata": "URI to storage account containing linked ARM templates"
+		},
+		"containerSasToken": {
+			"type": "string",
+			"metadata": "Sas token to storage account containing linked ARM templates"
+		}
+	},
+	"variables": {
+		"factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]"
+	},
+	"resources": [
+		{
+			"name": "nchn-dv-dep-001-adf_ArmTemplate_0",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2018-02-01",
+			"properties": {
+				"mode": "incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_0.json', parameters('containerSasToken'))]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"factoryName": {
+						"value": "[parameters('factoryName')]"
+					},
+					"AzureBlobStorage_connectionString": {
+						"value": "[parameters('AzureBlobStorage_connectionString')]"
+					},
+					"DataLake_accountKey": {
+						"value": "[parameters('DataLake_accountKey')]"
+					},
+					"FileServer1_password": {
+						"value": "[parameters('FileServer1_password')]"
+					},
+					"linkedService1_password": {
+						"value": "[parameters('linkedService1_password')]"
+					},
+					"DataLake_properties_typeProperties_url": {
+						"value": "[parameters('DataLake_properties_typeProperties_url')]"
+					},
+					"ex-adf-ir_properties_typeProperties_linkedInfo_resourceId": {
+						"value": "[parameters('ex-adf-ir_properties_typeProperties_linkedInfo_resourceId')]"
+					},
+					"FileServer1_properties_typeProperties_host": {
+						"value": "[parameters('FileServer1_properties_typeProperties_host')]"
+					},
+					"FileServer1_properties_typeProperties_userId": {
+						"value": "[parameters('FileServer1_properties_typeProperties_userId')]"
+					},
+					"linkedService1_properties_typeProperties_userName": {
+						"value": "[parameters('linkedService1_properties_typeProperties_userName')]"
+					}
+				}
+			},
+			"dependsOn": []
+		}
+	]
+}
