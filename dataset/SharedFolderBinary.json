@@ -5,27 +5,12 @@
 			"referenceName": "FileServer1",
 			"type": "LinkedServiceReference"
 		},
-		"parameters": {
-			"path": {
-				"type": "string"
-			},
-			"file": {
-				"type": "string"
-			}
-		},
 		"annotations": [],
 		"type": "Binary",
 		"typeProperties": {
 			"location": {
 				"type": "FileServerLocation",
-				"fileName": {
-					"value": "@dataset().file",
-					"type": "Expression"
-				},
-				"folderPath": {
-					"value": "@dataset().path",
-					"type": "Expression"
-				}
+				"fileName": "DATALOSS_WARNING_README.txt"
 			}
 		}
 	}

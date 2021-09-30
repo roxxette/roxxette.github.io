@@ -1,5 +1,5 @@
 {
-	"name": "pipeline2",
+	"name": "Azure vm shared folder test",
 	"properties": {
 		"activities": [
 			{
@@ -18,11 +18,10 @@
 					"source": {
 						"type": "BinarySource",
 						"storeSettings": {
-							"type": "AzureBlobFSReadSettings",
+							"type": "FileServerReadSettings",
 							"recursive": true,
 							"wildcardFolderPath": "devdatalake",
-							"wildcardFileName": "devdatalake",
-							"deleteFilesAfterCompletion": false
+							"wildcardFileName": "devdatalake"
 						},
 						"formatSettings": {
 							"type": "BinaryReadSettings"
@@ -31,24 +30,23 @@
 					"sink": {
 						"type": "BinarySink",
 						"storeSettings": {
-							"type": "FileServerWriteSettings"
+							"type": "AzureBlobFSWriteSettings"
 						}
 					},
 					"enableStaging": false
 				},
 				"inputs": [
 					{
-						"referenceName": "DLBinary",
+						"referenceName": "SharedFolderBinary",
 						"type": "DatasetReference"
 					}
 				],
 				"outputs": [
 					{
-						"referenceName": "SharedFolderBinary",
+						"referenceName": "BinaryOut",
 						"type": "DatasetReference",
 						"parameters": {
-							"path": "t",
-							"file": "test"
+							"filename": "test.txt"
 						}
 					}
 				]
