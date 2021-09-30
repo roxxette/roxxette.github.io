@@ -72,8 +72,7 @@
 								"storeSettings": {
 									"type": "FileServerReadSettings",
 									"recursive": true,
-									"wildcardFolderPath": "devdatalake",
-									"wildcardFileName": "devdatalake"
+									"deleteFilesAfterCompletion": false
 								},
 								"formatSettings": {
 									"type": "BinaryReadSettings"
