@@ -1,0 +1,16 @@
+{
+	"name": "AzureDatabricks1",
+	"properties": {
+		"annotations": [],
+		"type": "AzureDatabricks",
+		"typeProperties": {
+			"domain": "https://adb-8711695754245769.1.databricks.azure.cn",
+			"authentication": "MSI",
+			"workspaceResourceId": "/subscriptions/6d8d10a3-4fef-47a8-8cdc-a7b0443cdc44/resourceGroups/nchn-dv-dep-dl-rgp/providers/Microsoft.Databricks/workspaces/nchn-dv-dep-dbs",
+			"instancePoolId": "1011-023053-gamma1-pool-wm6ElGCy",
+			"newClusterNumOfWorker": "1",
+			"newClusterVersion": "9.1.x-scala2.12",
+			"newClusterInitScripts": []
+		}
+	}
+}
