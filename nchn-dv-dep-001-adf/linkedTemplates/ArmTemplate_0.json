@@ -19,6 +19,10 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'password' of 'FileServer1'"
 		},
+		"FileServer2_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'FileServer2'"
+		},
 		"linkedService1_password": {
 			"type": "secureString",
 			"metadata": "Secure string for 'password' of 'linkedService1'"
@@ -39,6 +43,14 @@
 			"type": "string",
 			"defaultValue": "szadmin"
 		},
+		"FileServer2_properties_typeProperties_host": {
+			"type": "string",
+			"defaultValue": "\\\\AZCNN2PRRPAAPP0\\test"
+		},
+		"FileServer2_properties_typeProperties_userId": {
+			"type": "string",
+			"defaultValue": "NESTLEDEP\\Xing.Robin"
+		},
 		"linkedService1_properties_typeProperties_userName": {
 			"type": "string",
 			"defaultValue": "admin"
@@ -57,6 +69,25 @@
 				"type": "AzureBlobStorage",
 				"typeProperties": {
 					"connectionString": "[parameters('AzureBlobStorage_connectionString')]"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/AzureDatabricks1')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureDatabricks",
+				"typeProperties": {
+					"domain": "https://adb-8711695754245769.1.databricks.azure.cn",
+					"authentication": "MSI",
+					"workspaceResourceId": "/subscriptions/6d8d10a3-4fef-47a8-8cdc-a7b0443cdc44/resourceGroups/nchn-dv-dep-dl-rgp/providers/Microsoft.Databricks/workspaces/nchn-dv-dep-dbs",
+					"instancePoolId": "1011-023053-gamma1-pool-wm6ElGCy",
+					"newClusterNumOfWorker": "1",
+					"newClusterVersion": "9.1.x-scala2.12",
+					"newClusterInitScripts": []
 				}
 			},
 			"dependsOn": []
@@ -670,6 +701,30 @@
 			]
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/FileServer2')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "FileServer",
+				"typeProperties": {
+					"host": "[parameters('FileServer2_properties_typeProperties_host')]",
+					"userId": "[parameters('FileServer2_properties_typeProperties_userId')]",
+					"password": {
+						"type": "SecureString",
+						"value": "[parameters('FileServer2_password')]"
+					}
+				},
+				"connectVia": {
+					"referenceName": "ex-adf-ir",
+					"type": "IntegrationRuntimeReference"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/integrationRuntimes/ex-adf-ir')]"
+			]
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/linkedService1')]",
 			"type": "Microsoft.DataFactory/factories/linkedServices",
 			"apiVersion": "2018-06-01",
@@ -778,7 +833,14 @@
 					{
 						"name": "Hive1",
 						"type": "HDInsightHive",
-						"dependsOn": [],
+						"dependsOn": [
+							{
+								"activity": "Notebook1",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
 						"policy": {
 							"timeout": "7.00:00:00",
 							"retry": 0,
@@ -801,6 +863,26 @@
 							"referenceName": "linkedService1",
 							"type": "LinkedServiceReference"
 						}
+					},
+					{
+						"name": "Notebook1",
+						"type": "DatabricksNotebook",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"notebookPath": "/Users/rox.ren1@cn.nestle.com/2021-04-02 - DBFS Example (1)"
+						},
+						"linkedServiceName": {
+							"referenceName": "AzureDatabricks1",
+							"type": "LinkedServiceReference"
+						}
 					}
 				],
 				"policy": {
@@ -812,7 +894,8 @@
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/linkedServices/DataLake')]",
-				"[concat(variables('factoryId'), '/linkedServices/linkedService1')]"
+				"[concat(variables('factoryId'), '/linkedServices/linkedService1')]",
+				"[concat(variables('factoryId'), '/linkedServices/AzureDatabricks1')]"
 			]
 		},
 		{

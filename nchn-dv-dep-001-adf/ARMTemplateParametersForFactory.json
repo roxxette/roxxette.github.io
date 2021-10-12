@@ -14,6 +14,9 @@
 		"FileServer1_password": {
 			"value": ""
 		},
+		"FileServer2_password": {
+			"value": ""
+		},
 		"linkedService1_password": {
 			"value": ""
 		},
@@ -25,6 +28,12 @@
 		},
 		"FileServer1_properties_typeProperties_userId": {
 			"value": "szadmin"
+		},
+		"FileServer2_properties_typeProperties_host": {
+			"value": "\\\\AZCNN2PRRPAAPP0\\test"
+		},
+		"FileServer2_properties_typeProperties_userId": {
+			"value": "NESTLEDEP\\Xing.Robin"
 		},
 		"linkedService1_properties_typeProperties_userName": {
 			"value": "admin"
