@@ -1,11 +1,16 @@
 {
 	"name": "DataLake",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
 	"properties": {
 		"annotations": [],
 		"type": "AzureBlobFS",
 		"typeProperties": {
-			"url": "https://nchndvdep003sta.dfs.core.chinacloudapi.cn/"
+			"url": "https://nchndvdep003sta.dfs.core.chinacloudapi.cn/",
+			"azureCloudType": "AzureChina",
+			"tenant": "de575837-ebbb-4b6f-9137-e25e8f11e138",
+			"servicePrincipalId": "7004fd50-b7c4-4884-9fa6-1999fe0a85ac",
+			"servicePrincipalCredentialType": "ServicePrincipalKey",
+			"encryptedCredential": "ew0KICAiVmVyc2lvbiI6ICIyMDE3LTExLTMwIiwNCiAgIlByb3RlY3Rpb25Nb2RlIjogIktleSIsDQogICJTZWNyZXRDb250ZW50VHlwZSI6ICJQbGFpbnRleHQiLA0KICAiQ3JlZGVudGlhbElkIjogIkRBVEFGQUNUT1JZQEQzNjVGQjZCLTc3RkEtNDdERi1BRTZELTU0QkU1Qjg1OTgzMF85YWY0MmM1NC00ZjUwLTQwMGItOGFmNC00MDM5NWU2ZTA2MTEiDQp9"
 		}
-	},
-	"type": "Microsoft.DataFactory/factories/linkedservices"
+	}
 }
