@@ -1,0 +1,10 @@
+{
+	"name": "DataLake_Scripts",
+	"properties": {
+		"annotations": [],
+		"type": "AzureBlobFS",
+		"typeProperties": {
+			"url": "https://nchnexdep004sta.dfs.core.chinacloudapi.cn/"
+		}
+	}
+}
