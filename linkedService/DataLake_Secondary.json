@@ -6,10 +6,7 @@
 		"type": "AzureBlobFS",
 		"typeProperties": {
 			"url": "https://nchnexdep004sta.dfs.core.chinacloudapi.cn/",
-			"tenant": "de575837-ebbb-4b6f-9137-e25e8f11e138",
-			"servicePrincipalId": "47931c52-42b7-4c59-82ee-b9780be8d207",
-			"servicePrincipalCredentialType": "ServicePrincipalKey",
-			"encryptedCredential": "eyJDcmVkZW50aWFsSWQiOiI3OTE5Y2JiZi1lNTk5LTQxYWMtYjQzMC0yNDU3NzZkMmE1ZDIiLCJWZXJzaW9uIjoiMi4wIiwiQ2xhc3NUeXBlIjoiTWljcm9zb2Z0LkRhdGFQcm94eS5Db3JlLkludGVyU2VydmljZURhdGFDb250cmFjdC5DcmVkZW50aWFsU1UwNkNZMTQifQ=="
+			"encryptedCredential": "eyJDcmVkZW50aWFsSWQiOiJmMWU3NmYyZS1kNDZlLTQ2YTctYWEzZS04YzI5NjVkMjJkOTciLCJWZXJzaW9uIjoiMi4wIiwiQ2xhc3NUeXBlIjoiTWljcm9zb2Z0LkRhdGFQcm94eS5Db3JlLkludGVyU2VydmljZURhdGFDb250cmFjdC5DcmVkZW50aWFsU1UwNkNZMTQifQ=="
 		},
 		"connectVia": {
 			"referenceName": "ex-adf-ir",
