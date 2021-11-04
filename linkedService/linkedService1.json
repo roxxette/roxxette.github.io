@@ -10,10 +10,10 @@
 			"isEspEnabled": false,
 			"fileSystem": "workspace",
 			"linkedServiceName": {
-				"referenceName": "DataLake",
+				"referenceName": "DataLake_Secondary",
 				"type": "LinkedServiceReference"
 			},
-			"encryptedCredential": "eyJDcmVkZW50aWFsSWQiOiIwNjBkMjVjZS05ZmEyLTQzMDUtOTQ1NC01MGNlZWEzNzM5NDAiLCJWZXJzaW9uIjoiMi4wIiwiQ2xhc3NUeXBlIjoiTWljcm9zb2Z0LkRhdGFQcm94eS5Db3JlLkludGVyU2VydmljZURhdGFDb250cmFjdC5DcmVkZW50aWFsU1UwNkNZMTQifQ=="
+			"encryptedCredential": "eyJDcmVkZW50aWFsSWQiOiIwN2Y5NTZmMy00MzI1LTQzNTUtOGVjZC1kNTFiOGQ1MzYxYjciLCJWZXJzaW9uIjoiMi4wIiwiQ2xhc3NUeXBlIjoiTWljcm9zb2Z0LkRhdGFQcm94eS5Db3JlLkludGVyU2VydmljZURhdGFDb250cmFjdC5DcmVkZW50aWFsU1UwNkNZMTQifQ=="
 		},
 		"connectVia": {
 			"referenceName": "ex-adf-ir",
