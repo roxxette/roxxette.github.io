@@ -17,7 +17,7 @@
 				"typeProperties": {
 					"scriptPath": "workspace/scripts/wang",
 					"scriptLinkedService": {
-						"referenceName": "DataLake_Secondary",
+						"referenceName": "DataLake_Scripts",
 						"type": "LinkedServiceReference"
 					}
 				},
