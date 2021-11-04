@@ -1,0 +1,23 @@
+{
+	"name": "linkedService1",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"annotations": [],
+		"type": "HDInsight",
+		"typeProperties": {
+			"clusterUri": "https://ha001-nchn-ex-dep-hdi-int.azurehdinsight.cn",
+			"userName": "admin",
+			"isEspEnabled": false,
+			"fileSystem": "workspace",
+			"linkedServiceName": {
+				"referenceName": "DataLake",
+				"type": "LinkedServiceReference"
+			},
+			"encryptedCredential": "eyJDcmVkZW50aWFsSWQiOiIwNjBkMjVjZS05ZmEyLTQzMDUtOTQ1NC01MGNlZWEzNzM5NDAiLCJWZXJzaW9uIjoiMi4wIiwiQ2xhc3NUeXBlIjoiTWljcm9zb2Z0LkRhdGFQcm94eS5Db3JlLkludGVyU2VydmljZURhdGFDb250cmFjdC5DcmVkZW50aWFsU1UwNkNZMTQifQ=="
+		},
+		"connectVia": {
+			"referenceName": "ex-adf-ir",
+			"type": "IntegrationRuntimeReference"
+		}
+	}
+}
