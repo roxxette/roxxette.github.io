@@ -15,7 +15,7 @@
 				},
 				"userProperties": [],
 				"typeProperties": {
-					"scriptPath": "workspace/scripts/wang",
+					"scriptPath": "workspace/scripts/rox/a.hql",
 					"scriptLinkedService": {
 						"referenceName": "DataLake_Scripts",
 						"type": "LinkedServiceReference"
