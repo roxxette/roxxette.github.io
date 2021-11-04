@@ -11,9 +11,13 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'AzureBlobStorage'"
 		},
-		"DataLake_accountKey": {
+		"DataLake_servicePrincipalCredential": {
 			"type": "secureString",
-			"metadata": "Secure string for 'accountKey' of 'DataLake'"
+			"metadata": "Secure string for 'servicePrincipalCredential' of 'DataLake'"
+		},
+		"DataLake_Secondary_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'DataLake_Secondary'"
 		},
 		"FileServer1_password": {
 			"type": "secureString",
@@ -23,17 +27,33 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'password' of 'FileServer2'"
 		},
-		"linkedService1_password": {
-			"type": "secureString",
-			"metadata": "Secure string for 'password' of 'linkedService1'"
+		"AzureKeyVault_properties_typeProperties_baseUrl": {
+			"type": "string",
+			"defaultValue": "https://nchndvdepaml008182289671.vault.azure.cn/"
 		},
 		"DataLake_properties_typeProperties_url": {
 			"type": "string",
-			"defaultValue": "https://nchndvdep003sta.dfs.core.chinacloudapi.cn"
+			"defaultValue": "https://nchndvdep003sta.dfs.core.chinacloudapi.cn/"
+		},
+		"DataLake_properties_typeProperties_tenant": {
+			"type": "string",
+			"defaultValue": "de575837-ebbb-4b6f-9137-e25e8f11e138"
+		},
+		"DataLake_properties_typeProperties_servicePrincipalId": {
+			"type": "string",
+			"defaultValue": "7004fd50-b7c4-4884-9fa6-1999fe0a85ac"
+		},
+		"DataLake_Scripts_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://nchnexdep004sta.dfs.core.chinacloudapi.cn/"
 		},
 		"ex-adf-ir_properties_typeProperties_linkedInfo_resourceId": {
 			"type": "string",
 			"defaultValue": "/subscriptions/738b238c-d18b-4b67-98e2-2d514fcaa6ee/resourcegroups/nchn-ex-dep-dl-rgp/providers/Microsoft.DataFactory/factories/nchn-ex-dep-001-adf/integrationruntimes/adf-ir"
+		},
+		"DataLake_Secondary_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://nchnexdep004sta.dfs.core.chinacloudapi.cn/"
 		},
 		"FileServer1_properties_typeProperties_host": {
 			"type": "string",
@@ -50,10 +70,6 @@
 		"FileServer2_properties_typeProperties_userId": {
 			"type": "string",
 			"defaultValue": "NESTLEDEP\\Xing.Robin"
-		},
-		"linkedService1_properties_typeProperties_userName": {
-			"type": "string",
-			"defaultValue": "admin"
 		}
 	},
 	"variables": {
@@ -93,6 +109,19 @@
 			"dependsOn": []
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/AzureKeyVault')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureKeyVault",
+				"typeProperties": {
+					"baseUrl": "[parameters('AzureKeyVault_properties_typeProperties_baseUrl')]"
+				}
+			},
+			"dependsOn": []
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/DataLake')]",
 			"type": "Microsoft.DataFactory/factories/linkedServices",
 			"apiVersion": "2018-06-01",
@@ -101,10 +130,27 @@
 				"type": "AzureBlobFS",
 				"typeProperties": {
 					"url": "[parameters('DataLake_properties_typeProperties_url')]",
-					"accountKey": {
+					"azureCloudType": "AzureChina",
+					"tenant": "[parameters('DataLake_properties_typeProperties_tenant')]",
+					"servicePrincipalId": "[parameters('DataLake_properties_typeProperties_servicePrincipalId')]",
+					"servicePrincipalCredentialType": "ServicePrincipalKey",
+					"servicePrincipalCredential": {
 						"type": "SecureString",
-						"value": "[parameters('DataLake_accountKey')]"
+						"value": "[parameters('DataLake_servicePrincipalCredential')]"
 					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/DataLake_Scripts')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureBlobFS",
+				"typeProperties": {
+					"url": "[parameters('DataLake_Scripts_properties_typeProperties_url')]"
 				}
 			},
 			"dependsOn": []
@@ -677,6 +723,29 @@
 			]
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/DataLake_Secondary')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureBlobFS",
+				"typeProperties": {
+					"url": "[parameters('DataLake_Secondary_properties_typeProperties_url')]",
+					"accountKey": {
+						"type": "SecureString",
+						"value": "[parameters('DataLake_Secondary_accountKey')]"
+					}
+				},
+				"connectVia": {
+					"referenceName": "ex-adf-ir",
+					"type": "IntegrationRuntimeReference"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/integrationRuntimes/ex-adf-ir')]"
+			]
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/FileServer1')]",
 			"type": "Microsoft.DataFactory/factories/linkedServices",
 			"apiVersion": "2018-06-01",
@@ -725,29 +794,27 @@
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/linkedService1')]",
-			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"name": "[concat(parameters('factoryName'), '/credential1')]",
+			"type": "Microsoft.DataFactory/factories/credentials",
 			"apiVersion": "2018-06-01",
 			"properties": {
-				"annotations": [],
-				"type": "HDInsight",
+				"type": "ServicePrincipal",
 				"typeProperties": {
-					"clusterUri": "https://ha002-nchn-dv-dep-hdi.azurehdinsight.cn",
-					"userName": "[parameters('linkedService1_properties_typeProperties_userName')]",
-					"password": {
-						"type": "SecureString",
-						"value": "[parameters('linkedService1_password')]"
+					"tenant": "de575837-ebbb-4b6f-9137-e25e8f11e138",
+					"servicePrincipalId": "7004fd50-b7c4-4884-9fa6-1999fe0a85ac",
+					"servicePrincipalKey": {
+						"type": "AzureKeyVaultSecret",
+						"store": {
+							"referenceName": "AzureKeyVault",
+							"type": "LinkedServiceReference"
+						},
+						"secretName": "duodian-secret"
 					},
-					"isEspEnabled": false,
-					"fileSystem": "workspace",
-					"linkedServiceName": {
-						"referenceName": "DataLake",
-						"type": "LinkedServiceReference"
-					}
+					"azureCloudType": "AzureChina"
 				}
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/DataLake')]"
+				"[concat(variables('factoryId'), '/linkedServices/AzureKeyVault')]"
 			]
 		},
 		{
@@ -825,80 +892,6 @@
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/pipeline1')]",
-			"type": "Microsoft.DataFactory/factories/pipelines",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"activities": [
-					{
-						"name": "Hive1",
-						"type": "HDInsightHive",
-						"dependsOn": [
-							{
-								"activity": "Notebook1",
-								"dependencyConditions": [
-									"Succeeded"
-								]
-							}
-						],
-						"policy": {
-							"timeout": "7.00:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"scriptPath": "devdatalake/devdatalake",
-							"defines": {
-								"test": "tata"
-							},
-							"scriptLinkedService": {
-								"referenceName": "DataLake",
-								"type": "LinkedServiceReference"
-							}
-						},
-						"linkedServiceName": {
-							"referenceName": "linkedService1",
-							"type": "LinkedServiceReference"
-						}
-					},
-					{
-						"name": "Notebook1",
-						"type": "DatabricksNotebook",
-						"dependsOn": [],
-						"policy": {
-							"timeout": "7.00:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"notebookPath": "/Users/rox.ren1@cn.nestle.com/2021-04-02 - DBFS Example (1)"
-						},
-						"linkedServiceName": {
-							"referenceName": "AzureDatabricks1",
-							"type": "LinkedServiceReference"
-						}
-					}
-				],
-				"policy": {
-					"elapsedTimeMetric": {},
-					"cancelAfter": {}
-				},
-				"annotations": [],
-				"lastPublishTime": "2021-09-09T04:16:54Z"
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/DataLake')]",
-				"[concat(variables('factoryId'), '/linkedServices/linkedService1')]",
-				"[concat(variables('factoryId'), '/linkedServices/AzureDatabricks1')]"
-			]
-		},
-		{
 			"name": "[concat(parameters('factoryName'), '/SharedFolderBinary')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
@@ -918,73 +911,6 @@
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/linkedServices/FileServer1')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/Azure vm shared folder test')]",
-			"type": "Microsoft.DataFactory/factories/pipelines",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"activities": [
-					{
-						"name": "Copy data1",
-						"type": "Copy",
-						"dependsOn": [],
-						"policy": {
-							"timeout": "7.00:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"source": {
-								"type": "BinarySource",
-								"storeSettings": {
-									"type": "FileServerReadSettings",
-									"recursive": true,
-									"deleteFilesAfterCompletion": false
-								},
-								"formatSettings": {
-									"type": "BinaryReadSettings"
-								}
-							},
-							"sink": {
-								"type": "BinarySink",
-								"storeSettings": {
-									"type": "AzureBlobFSWriteSettings"
-								}
-							},
-							"enableStaging": false
-						},
-						"inputs": [
-							{
-								"referenceName": "SharedFolderBinary",
-								"type": "DatasetReference",
-								"parameters": {}
-							}
-						],
-						"outputs": [
-							{
-								"referenceName": "BinaryOut",
-								"type": "DatasetReference",
-								"parameters": {
-									"filename": "test.txt"
-								}
-							}
-						]
-					}
-				],
-				"policy": {
-					"elapsedTimeMetric": {},
-					"cancelAfter": {}
-				},
-				"annotations": []
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/datasets/SharedFolderBinary')]",
-				"[concat(variables('factoryId'), '/datasets/BinaryOut')]"
 			]
 		}
 	]

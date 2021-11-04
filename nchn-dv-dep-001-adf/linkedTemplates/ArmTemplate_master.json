@@ -11,9 +11,13 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'AzureBlobStorage'"
 		},
-		"DataLake_accountKey": {
+		"DataLake_servicePrincipalCredential": {
 			"type": "secureString",
-			"metadata": "Secure string for 'accountKey' of 'DataLake'"
+			"metadata": "Secure string for 'servicePrincipalCredential' of 'DataLake'"
+		},
+		"DataLake_Secondary_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'DataLake_Secondary'"
 		},
 		"FileServer1_password": {
 			"type": "secureString",
@@ -27,9 +31,29 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'password' of 'linkedService1'"
 		},
+		"AzureKeyVault_properties_typeProperties_baseUrl": {
+			"type": "string",
+			"defaultValue": "https://nchndvdepaml008182289671.vault.azure.cn/"
+		},
 		"DataLake_properties_typeProperties_url": {
 			"type": "string",
-			"defaultValue": "https://nchndvdep003sta.dfs.core.chinacloudapi.cn"
+			"defaultValue": "https://nchndvdep003sta.dfs.core.chinacloudapi.cn/"
+		},
+		"DataLake_properties_typeProperties_tenant": {
+			"type": "string",
+			"defaultValue": "de575837-ebbb-4b6f-9137-e25e8f11e138"
+		},
+		"DataLake_properties_typeProperties_servicePrincipalId": {
+			"type": "string",
+			"defaultValue": "7004fd50-b7c4-4884-9fa6-1999fe0a85ac"
+		},
+		"DataLake_Scripts_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://nchnexdep004sta.dfs.core.chinacloudapi.cn/"
+		},
+		"DataLake_Secondary_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://nchnexdep004sta.dfs.core.chinacloudapi.cn/"
 		},
 		"FileServer1_properties_typeProperties_host": {
 			"type": "string",
@@ -85,8 +109,11 @@
 					"AzureBlobStorage_connectionString": {
 						"value": "[parameters('AzureBlobStorage_connectionString')]"
 					},
-					"DataLake_accountKey": {
-						"value": "[parameters('DataLake_accountKey')]"
+					"DataLake_servicePrincipalCredential": {
+						"value": "[parameters('DataLake_servicePrincipalCredential')]"
+					},
+					"DataLake_Secondary_accountKey": {
+						"value": "[parameters('DataLake_Secondary_accountKey')]"
 					},
 					"FileServer1_password": {
 						"value": "[parameters('FileServer1_password')]"
@@ -94,14 +121,26 @@
 					"FileServer2_password": {
 						"value": "[parameters('FileServer2_password')]"
 					},
-					"linkedService1_password": {
-						"value": "[parameters('linkedService1_password')]"
+					"AzureKeyVault_properties_typeProperties_baseUrl": {
+						"value": "[parameters('AzureKeyVault_properties_typeProperties_baseUrl')]"
 					},
 					"DataLake_properties_typeProperties_url": {
 						"value": "[parameters('DataLake_properties_typeProperties_url')]"
 					},
+					"DataLake_properties_typeProperties_tenant": {
+						"value": "[parameters('DataLake_properties_typeProperties_tenant')]"
+					},
+					"DataLake_properties_typeProperties_servicePrincipalId": {
+						"value": "[parameters('DataLake_properties_typeProperties_servicePrincipalId')]"
+					},
+					"DataLake_Scripts_properties_typeProperties_url": {
+						"value": "[parameters('DataLake_Scripts_properties_typeProperties_url')]"
+					},
 					"ex-adf-ir_properties_typeProperties_linkedInfo_resourceId": {
 						"value": "[parameters('ex-adf-ir_properties_typeProperties_linkedInfo_resourceId')]"
+					},
+					"DataLake_Secondary_properties_typeProperties_url": {
+						"value": "[parameters('DataLake_Secondary_properties_typeProperties_url')]"
 					},
 					"FileServer1_properties_typeProperties_host": {
 						"value": "[parameters('FileServer1_properties_typeProperties_host')]"
@@ -114,13 +153,36 @@
 					},
 					"FileServer2_properties_typeProperties_userId": {
 						"value": "[parameters('FileServer2_properties_typeProperties_userId')]"
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "nchn-dv-dep-001-adf_ArmTemplate_1",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2018-02-01",
+			"properties": {
+				"mode": "incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_1.json', parameters('containerSasToken'))]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"factoryName": {
+						"value": "[parameters('factoryName')]"
+					},
+					"linkedService1_password": {
+						"value": "[parameters('linkedService1_password')]"
 					},
 					"linkedService1_properties_typeProperties_userName": {
 						"value": "[parameters('linkedService1_properties_typeProperties_userName')]"
 					}
 				}
 			},
-			"dependsOn": []
+			"dependsOn": [
+				"[resourceId('Microsoft.Resources/deployments', 'nchn-dv-dep-001-adf_ArmTemplate_0')]"
+			]
 		}
 	]
 }

@@ -8,7 +8,10 @@
 		"AzureBlobStorage_connectionString": {
 			"value": ""
 		},
-		"DataLake_accountKey": {
+		"DataLake_servicePrincipalCredential": {
+			"value": ""
+		},
+		"DataLake_Secondary_accountKey": {
 			"value": ""
 		},
 		"FileServer1_password": {
@@ -20,8 +23,23 @@
 		"linkedService1_password": {
 			"value": ""
 		},
+		"AzureKeyVault_properties_typeProperties_baseUrl": {
+			"value": "https://nchndvdepaml008182289671.vault.azure.cn/"
+		},
 		"DataLake_properties_typeProperties_url": {
-			"value": "https://nchndvdep003sta.dfs.core.chinacloudapi.cn"
+			"value": "https://nchndvdep003sta.dfs.core.chinacloudapi.cn/"
+		},
+		"DataLake_properties_typeProperties_tenant": {
+			"value": "de575837-ebbb-4b6f-9137-e25e8f11e138"
+		},
+		"DataLake_properties_typeProperties_servicePrincipalId": {
+			"value": "7004fd50-b7c4-4884-9fa6-1999fe0a85ac"
+		},
+		"DataLake_Scripts_properties_typeProperties_url": {
+			"value": "https://nchnexdep004sta.dfs.core.chinacloudapi.cn/"
+		},
+		"DataLake_Secondary_properties_typeProperties_url": {
+			"value": "https://nchnexdep004sta.dfs.core.chinacloudapi.cn/"
 		},
 		"FileServer1_properties_typeProperties_host": {
 			"value": "\\\\AZCNN2STGW01\\Rox"
