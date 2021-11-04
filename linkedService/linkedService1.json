@@ -5,12 +5,12 @@
 		"annotations": [],
 		"type": "HDInsight",
 		"typeProperties": {
-			"clusterUri": "https://ha002-nchn-dv-dep-hdi-int.azurehdinsight.cn",
+			"clusterUri": "https://ha002-nchn-ex-dep-hdi-int.azurehdinsight.cn",
 			"userName": "admin",
 			"isEspEnabled": false,
 			"fileSystem": "workspace",
 			"linkedServiceName": {
-				"referenceName": "DataLake",
+				"referenceName": "DataLake_Secondary",
 				"type": "LinkedServiceReference"
 			},
 			"encryptedCredential": "eyJDcmVkZW50aWFsSWQiOiJkYzI0YjNmNS1lMDlmLTQxMWEtODlmMC1lMjE3OWM0ZGM5NzEiLCJWZXJzaW9uIjoiMi4wIiwiQ2xhc3NUeXBlIjoiTWljcm9zb2Z0LkRhdGFQcm94eS5Db3JlLkludGVyU2VydmljZURhdGFDb250cmFjdC5DcmVkZW50aWFsU1UwNkNZMTQifQ=="
